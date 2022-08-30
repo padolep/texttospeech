@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Simple Text to Speech - Plugin</title>
+    <style>
+      * {
+        padding: 0;
+        margin: 0;
+        box-sizing: border-box;
+      }
+
+      .speak-area {
+        border: 1px solid #ccc;
+        padding: 5px;
+        float: left;
+        width: 50%;
+      }
+
+      .speak-area h1 {
+        float: left;
+        padding-right: 5px;
+        font-size: 18px;
+      }
+
+      .speak-area .speakTxt {
+        display: inline-block;
+        background: #000;
+
+        border-radius: 100%;
+      }
+
+      .speak-area .speakTxt.active {
+        opacity: 0.5;
+        cursor: not-allowed;
+      }
+
+      .speak-area svg {
+        padding: 5px;
+      }
+    </style>
+  </head>
+
+  <body>
+    <main>
+      <div class="speak-area">
+        <h1>
+          This document lays out the Terms and Conditions which shall be
+          applicable to all the accounts which are existing or may be opened
+          anytime in future with HDFC Bank. The words, I, me, my and Customer
+          refer to the person(s) who open the account and shall include both
+          singular and plural. Reference to masculine shall include the feminine
+          and neuter gender. The Bank refers to HDFC Bank Ltd., a banking
+          company incorporated in India under the Companies Act 1956 and having
+          its registered office at HDFC Bank House, Senapati Bapat Marg, Lower
+          Parel, Mumbai-400013.
+        </h1>
+        <a href="javascript:;" class="speakTxt">
+          
+          <button type="button" class="btn btn-primary">Audio</button>
+
+          </svg>
+        </a>
+      </div>
+    </main>
+
+    <!-- partial -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+    <script>
+      $(".speakTxt").on("click", function () {
+        $(".speakTxt").removeClass("active");
+        var texttoread = $(this).parent(".speak-area").find("h1").text();
+        $(this).toggleClass("active");
+        console.log(texttoread);
+        var speech = new SpeechSynthesisUtterance();
+        // Set the text and voice attributes.
+        speech.text = texttoread;
+        speech.volume = 1;
+        speech.rate = 1;
+        speech.pitch = 1;
+
+        window.speechSynthesis.speak(speech);
+      });
+    </script>
+  </body>
+</html>
